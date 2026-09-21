@@ -20,9 +20,12 @@
     };
   }
 
-  function createAudioToggle({ audio, fallback, onState = function () {}, playTimeoutMs = 1500 }) {
+  /* 音频开关。
+     audio 为可选：页面里没有 <audio> 元素时（即站内不提供《游京》音轨），
+     直接以合成古琴起步，不会去请求不存在的音频文件。 */
+  function createAudioToggle({ audio = null, fallback, onState = function () {}, playTimeoutMs = 1500 }) {
     let playing = false;
-    let mode = 'idle';
+    let mode = audio ? 'idle' : 'synth';
 
     const state = () => ({ playing, mode });
     const emit = () => {
@@ -39,7 +42,7 @@
         return emit();
       }
 
-      if (mode === 'fallback') {
+      if (mode === 'synth') {
         await fallback.start();
         playing = true;
         return emit();
@@ -63,7 +66,7 @@
           try { audio.pause(); } catch (pauseError) { /* media was never active */ }
         }
         await fallback.start();
-        mode = 'fallback';
+        mode = 'synth';
       } finally {
         if (timeoutId !== null) clearTimeout(timeoutId);
       }

@@ -27,7 +27,7 @@ js/main.js          全部交互
 images/sd/          48 张 1600px WebP 图片
 fonts/              35 个 woff2 字体子集
 vendor/             gsap / ScrollTrigger / lenis
-audio/              背景音乐放置说明
+audio/              预留目录（当前为空，背景音乐为实时合成古琴）
 ```
 
 ## 本地预览
@@ -48,8 +48,9 @@ python3 -m http.server 8000
   ```
   同时把 `js/main.js` 顶部的 `IMG_EXT` 改为 `'webp'`（本仓库已经是 WebP）。
 - **改配色**：`css/style.css` 顶部 `:root` 里的 `--paper / --ink / --vermilion / --gold` 等变量。
-- **放背景音乐**：将有播放权的音频命名为 `audio/youjing.m4a`（推荐）或 `audio/youjing.mp3`。
-  文件缺失时，右上角「游京」按钮会自动回退到站内合成古琴，不影响使用。
+- **背景音乐**：右上角「古琴」按钮播放的是 Web Audio 实时合成的古琴，不依赖任何音频文件。
+  本站不内置第三方音乐音轨。若日后取得某首曲子的公开传播授权，可在 `index.html` 放回
+  `<audio id="bgm-audio">` 元素，`js/main.js` 会自动优先播放它。
 
 ## 交互一览
 

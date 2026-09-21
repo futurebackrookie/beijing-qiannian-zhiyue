@@ -36,14 +36,13 @@
       <span class="brand-seal">京</span>
       <span class="brand-text">北京 <em>·</em> 千年之约</span>
     </a>
-    <button id="bgm-toggle" type="button" aria-pressed="false" aria-label="播放《游京》">
+    <button id="bgm-toggle" type="button" aria-pressed="false" aria-label="播放背景音乐">
       <span class="bgm-bars"><i></i><i></i><i></i><i></i></span>
-      <span class="bgm-label">游京</span>
+      <span class="bgm-label">古琴</span>
     </button>
-    <audio id="bgm-audio" loop preload="none">
-      <source src="audio/youjing.m4a" type="audio/mp4">
-      <source src="audio/youjing.mp3" type="audio/mpeg">
-    </audio>
+    <!-- 站内不内置《游京》音轨（未取得公开传播授权）。
+         取得授权后，在此放回 <audio id="bgm-audio"> 及 m4a/mp3 两个 source，
+         js/main.js 会自动检测并优先播放它。 -->
     <span id="bgm-status" class="sr-only" aria-live="polite"></span>
   </header>
 
