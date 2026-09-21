@@ -11,7 +11,8 @@
 - **完全自包含**：图片、字体、动画库（GSAP / ScrollTrigger / Lenis）全部在本仓库内，不依赖 CDN，离线可运行。
 - **字体子集化**：中文字体（Ma Shan Zheng / ZCOOL XiaoWei / Noto Serif SC）按站内实际用字做了子集切分，
   35 个 woff2 文件共约 2MB 覆盖全站中文，并通过 `unicode-range` 按需加载。
-- **渐进式图片**：`images/sd/` 为 1600px WebP（q78），进入视口前 1 屏开始加载，加载完成淡入。
+- **4K 图片**：`images/sd/` 为 3840px 原始 JPEG（无重压），全设备统一 4K。
+  分片懒加载——进入视口前 1 屏才开始加载，首屏约 3.6MB，全部看完累计约 102MB。
 - **可访问性**：图片 alt 齐备，按钮均有 aria-label，支持 `prefers-reduced-motion`，`lang="zh-CN"`。
 - **响应式**：桌面 / 平板 / 手机三档断点，移动端中轴线与时间线自动切换为竖排单列布局。
 
