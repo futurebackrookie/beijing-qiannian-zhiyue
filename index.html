@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>北京 · 千年之约</title>
+  <meta name="description" content="一座城，三千年建城，八百年建都。四季北京、中轴线、京城七景、老北京的一天——来北京，赴一场千年之约。">
+  <meta name="theme-color" content="#f4efe6">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='6' fill='%23c8322b'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='%23f4efe6' font-family='serif'%3E京%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 加载遮罩：水墨「京」字 -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-ink"></div>
+    <div class="loader-char">京</div>
+    <div class="loader-line"><i></i></div>
+    <div class="loader-tip">卷轴展开中</div>
+  </div>
+
+  <!-- 宣纸颗粒 -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- 自定义鼠标 -->
+  <div id="cursor" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- 粒子画布 -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <!-- 顶栏 -->
+  <header class="topbar">
+    <a class="brand" href="#hero" data-nav>
+      <span class="brand-seal">京</span>
+      <span class="brand-text">北京 <em>·</em> 千年之约</span>
+    </a>
+    <button id="bgm-toggle" type="button" aria-pressed="false" aria-label="播放《游京》">
+      <span class="bgm-bars"><i></i><i></i><i></i><i></i></span>
+      <span class="bgm-label">游京</span>
+    </button>
+    <audio id="bgm-audio" loop preload="none">
+      <source src="audio/youjing.m4a" type="audio/mp4">
+      <source src="audio/youjing.mp3" type="audio/mpeg">
+    </audio>
+    <span id="bgm-status" class="sr-only" aria-live="polite"></span>
+  </header>
+
+  <!-- 卷轴目录 -->
+  <nav class="scroll-nav" aria-label="目录">
+    <a href="#hero" data-nav><span>序</span></a>
+    <a href="#seasons" data-nav><span>四季</span></a>
+    <a href="#history" data-nav><span>长河</span></a>
+    <a href="#axis" data-nav><span>中轴</span></a>
+    <a href="#scenes" data-nav><span>七景</span></a>
+    <a href="#food" data-nav><span>美食</span></a>
+    <a href="#opera" data-nav><span>脸谱</span></a>
+    <a href="#dialect" data-nav><span>京话</span></a>
+    <a href="#terms" data-nav><span>节气</span></a>
+    <a href="#day" data-nav><span>一日</span></a>
+    <a href="#planner" data-nav><span>行程</span></a>
+    <a href="#ending" data-nav><span>终</span></a>
+  </nav>
+
+  <main>
+
+    <!-- ① 开场卷轴 -->
+    <section id="hero" class="hero">
+      <div class="hero-stage">
+        <div class="hero-bg" data-bg="hero"></div>
+        <div class="hero-dim"></div>
+        <div class="hero-wash"></div>
+        <div class="mist mist-1"></div>
+        <div class="mist mist-2"></div>
+        <div class="hero-vignette"></div>
+
+        <div class="hero-content">
+          <h1 class="hero-title vertical" aria-label="北京">
+            <span class="hero-char">北</span>
+            <span class="hero-char">京</span>
+          </h1>
+          <div class="hero-seal seal seal-lg"><span>千年<br>之约</span></div>
+          <p class="hero-sub vertical">
+            <span>三千年建城 · 八百年建都</span>
+          </p>
+          <p class="hero-en">BEIJING · THE CAPITAL OF A THOUSAND YEARS</p>
+        </div>
+
+        <div class="hero-band top"></div>
+        <div class="hero-band bottom"></div>
+        <div class="hero-cover left"></div>
+        <div class="hero-cover right"></div>
+        <div class="hero-roller left"></div>
+        <div class="hero-roller right"></div>
+
+        <div class="scroll-hint">
+          <span class="vertical">向下展开长卷</span>
+          <i></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- ② 四季北京 -->
+    <section id="seasons" class="seasons">
+      <div class="seasons-stage">
+        <div class="seasons-slides"></div>
+        <div class="sec-head light seasons-head">
+          <span class="sec-en">FOUR SEASONS</span>
+          <h2>四季北京</h2>
+        </div>
+        <div class="seasons-indicator"></div>
+        <div class="seasons-drag-hint">← 拖动 · 滚动 →</div>
+      </div>
+    </section>
+
+    <!-- ③ 八百年建都史 -->
+    <section id="history" class="history">
+      <div class="history-stage">
+        <div class="history-era-bg" aria-hidden="true"></div>
+        <div class="sec-head history-head">
+          <span class="sec-en">A RIVER OF TIME</span>
+          <h2>三千年建城 · 八百年建都</h2>
+          <p class="sec-sub">从燕蓟到双奥之城，一条时间长河</p>
+        </div>
+        <div class="timeline-track">
+          <div class="timeline-line"><i></i></div>
+        </div>
+        <div class="history-progress"><i></i></div>
+      </div>
+    </section>
+
+    <!-- ④ 中轴线 -->
+    <section id="axis" class="axis">
+      <div class="sec-head center">
+        <span class="sec-en">THE CENTRAL AXIS · 7.8 KM</span>
+        <h2>中轴线</h2>
+        <p class="sec-sub">一条线，把一座城分成了左右对称的两半。世界遗产，北京的脊梁。</p>
+      </div>
+      <div class="axis-wrap">
+        <div class="axis-line"><i></i></div>
+        <div class="axis-items"></div>
+      </div>
+    </section>
+
+    <!-- ⑤ 京城七景 -->
+    <section id="scenes" class="scenes">
+      <div class="sec-head center">
+        <span class="sec-en">SEVEN SCENES</span>
+        <h2>京城七景</h2>
+        <p class="sec-sub">悬停或点按卡片，翻开背面的故事</p>
+      </div>
+      <div class="scene-grid"></div>
+    </section>
+
+
+    <!-- ⑥ 京味儿 · 美食 -->
+    <section id="food" class="food">
+      <div class="sec-head center light">
+        <span class="sec-en">TASTE OF BEIJING</span>
+        <h2>京味儿</h2>
+        <p class="sec-sub">二十六道有图有真相，三十八道留在名单里——北京的胃，装得下三千年</p>
+      </div>
+      <div class="food-tools">
+        <div class="food-tabs" role="tablist">
+          <button class="food-tab active" data-cat="all">全部</button>
+          <button class="food-tab" data-cat="main">硬菜</button>
+          <button class="food-tab" data-cat="snack">小吃</button>
+          <button class="food-tab" data-cat="sweet">甜点</button>
+          <button class="food-tab" data-cat="drink">饮品</button>
+        </div>
+        <button class="food-order" type="button">帮我点单 · 一日三餐</button>
+      </div>
+      <div class="food-menu" hidden>
+        <div class="food-menu-paper">
+          <span class="food-menu-title">今日菜单</span>
+          <ul class="food-menu-list"></ul>
+          <button class="food-menu-again" type="button">换一桌</button>
+        </div>
+      </div>
+      <div class="food-grid"></div>
+      <div class="food-stamps">
+        <div class="food-stamps-head">
+          <span class="food-stamps-title">食客印章册</span>
+          <span class="food-stamps-count">已尝 <b>0</b> / 26</span>
+        </div>
+        <div class="food-stamps-grid"></div>
+        <div class="food-master seal seal-xl"><span>京味儿<br>达人</span></div>
+        <p class="food-stamps-tip">点开任意一道菜，按「尝一口」盖章。集满十枚，得「京味儿达人」印。</p>
+      </div>
+      <div class="food-more">
+        <span class="food-more-label">还有这些别错过</span>
+        <div class="food-marquee"><div class="food-marquee-track"></div></div>
+      </div>
+      <div class="food-modal" hidden>
+        <div class="food-modal-backdrop"></div>
+        <div class="food-modal-card">
+          <button class="food-modal-close" type="button" aria-label="关闭">×</button>
+          <div class="food-modal-pic pic"></div>
+          <div class="food-modal-body">
+            <span class="food-modal-cat"></span>
+            <h3 class="food-modal-name"></h3>
+            <span class="food-modal-en"></span>
+            <div class="food-modal-meta">
+              <span class="food-courage"></span>
+              <span class="food-when"></span>
+            </div>
+            <p class="food-modal-story"></p>
+            <p class="food-modal-where"></p>
+            <button class="food-taste" type="button">尝一口</button>
+            <div class="food-reaction"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑦ 京剧脸谱 -->
+    <section id="opera" class="opera">
+      <div class="sec-head center">
+        <span class="sec-en">PEKING OPERA MASKS</span>
+        <h2>脸谱 · 点睛</h2>
+        <p class="sec-sub">红脸忠、黑脸直、白脸奸——一张脸，就是一个人的一生</p>
+      </div>
+      <div class="opera-stage">
+        <div class="opera-mask-wrap">
+          <svg class="opera-mask" viewBox="0 0 400 500" aria-hidden="true">
+            <defs>
+              <clipPath id="face-clip"><path d="M200,28 C300,28 352,100 352,220 C352,340 300,462 200,472 C100,462 48,340 48,220 C48,100 100,28 200,28 Z"/></clipPath>
+            </defs>
+            <path class="m-base" d="M200,28 C300,28 352,100 352,220 C352,340 300,462 200,472 C100,462 48,340 48,220 C48,100 100,28 200,28 Z"/>
+            <g clip-path="url(#face-clip)">
+              <!-- 额头纹 -->
+              <path class="m-accent m-forehead" d="M110,120 C150,70 250,70 290,120 C250,95 150,95 110,120 Z"/>
+              <path class="m-accent m-forehead" d="M130,150 C160,115 240,115 270,150 C240,132 160,132 130,150 Z"/>
+              <!-- 眉 -->
+              <path class="m-accent m-brow" d="M92,196 C120,150 175,150 190,186 C170,172 125,175 92,196 Z"/>
+              <path class="m-accent m-brow" d="M308,196 C280,150 225,150 210,186 C230,172 275,175 308,196 Z"/>
+              <!-- 眼窝 -->
+              <path class="m-accent m-eye" d="M84,236 C110,196 178,200 192,232 C176,254 118,262 84,236 Z"/>
+              <path class="m-accent m-eye" d="M316,236 C290,196 222,200 208,232 C224,254 282,262 316,236 Z"/>
+              <path class="m-eyeball" d="M112,230 C130,212 168,214 180,230 C168,246 130,248 112,230 Z"/>
+              <path class="m-eyeball" d="M288,230 C270,212 232,214 220,230 C232,246 270,248 288,230 Z"/>
+              <circle class="m-pupil" cx="148" cy="230" r="9"/>
+              <circle class="m-pupil" cx="252" cy="230" r="9"/>
+              <!-- 鼻 -->
+              <path class="m-accent m-nose" d="M200,238 C190,270 176,300 176,316 C186,326 214,326 224,316 C224,300 210,270 200,238 Z"/>
+              <!-- 颊纹 -->
+              <path class="m-accent m-cheek" d="M70,290 C100,270 130,290 128,330 C116,310 92,300 70,290 Z"/>
+              <path class="m-accent m-cheek" d="M330,290 C300,270 270,290 272,330 C284,310 308,300 330,290 Z"/>
+              <!-- 嘴 -->
+              <path class="m-mouth" d="M150,372 C170,356 230,356 250,372 C232,392 168,392 150,372 Z"/>
+              <path class="m-accent m-lip" d="M150,372 C170,364 230,364 250,372 C230,368 170,368 150,372 Z"/>
+              <!-- 额头徽记 -->
+              <g class="m-emblem m-emblem-moon"><path d="M200,86 C214,86 226,96 228,112 C218,104 204,104 196,112 C190,100 194,90 200,86 Z"/></g>
+              <g class="m-emblem m-emblem-fire"><path d="M200,70 C214,86 222,98 216,112 C210,104 204,104 200,112 C196,104 190,104 184,112 C178,98 186,86 200,70 Z"/></g>
+              <g class="m-emblem m-emblem-eye"><path d="M176,98 C188,84 212,84 224,98 C212,112 188,112 176,98 Z"/><circle cx="200" cy="98" r="6"/></g>
+              <g class="m-emblem m-emblem-cloud"><path d="M172,104 C176,90 194,88 200,98 C206,88 224,90 228,104 C224,112 208,110 200,106 C192,110 176,112 172,104 Z"/></g>
+              <!-- 胡须 -->
+              <g class="m-beard">
+                <path d="M120,392 C140,430 170,470 200,480 C230,470 260,430 280,392 C250,410 230,414 200,412 C170,414 150,410 120,392 Z"/>
+              </g>
+            </g>
+            <path class="m-outline" d="M200,28 C300,28 352,100 352,220 C352,340 300,462 200,472 C100,462 48,340 48,220 C48,100 100,28 200,28 Z"/>
+          </svg>
+          <div class="opera-brush" aria-hidden="true"></div>
+        </div>
+        <div class="opera-panel">
+          <div class="opera-swatches"></div>
+          <div class="opera-info">
+            <span class="opera-color-name"></span>
+            <h3 class="opera-role"></h3>
+            <span class="opera-trait"></span>
+            <p class="opera-story"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑧ 北京话考试 -->
+    <section id="dialect" class="dialect">
+      <div class="sec-head center">
+        <span class="sec-en">BEIJING DIALECT TEST</span>
+        <h2>北京话 · 等级考试</h2>
+        <p class="sec-sub">十道题，测测您是「地道北京人」还是「外地朋友」</p>
+      </div>
+      <div class="exam">
+        <div class="exam-head">
+          <span class="exam-title">北京话等级考试 · 第壹套</span>
+          <span class="exam-progress">第 <b>0</b> / 10 题</span>
+        </div>
+        <div class="exam-bar"><i></i></div>
+        <div class="exam-start">
+          <p>答题不限时，答完自动评级。准备好了吗，您内？</p>
+          <button class="exam-btn exam-begin" type="button">开始答题</button>
+        </div>
+        <div class="exam-q" hidden>
+          <p class="exam-question"></p>
+          <div class="exam-options"></div>
+          <div class="exam-explain" hidden></div>
+          <button class="exam-btn exam-next" type="button" hidden>下一题</button>
+        </div>
+        <div class="exam-result" hidden>
+          <div class="exam-score"><b>0</b><span>/ 10</span></div>
+          <div class="exam-grade seal seal-xl"><span></span></div>
+          <p class="exam-comment"></p>
+          <button class="exam-btn exam-again" type="button">再考一次</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑨ 二十四节气 -->
+    <section id="terms" class="terms">
+      <div class="sec-head center light">
+        <span class="sec-en">24 SOLAR TERMS</span>
+        <h2>二十四节气 · 北京</h2>
+          <p class="sec-sub">拖动转盘，或点击按钮——每一个节气，北京都有一件该做的事</p>
+      </div>
+      <div class="terms-stage">
+        <div class="terms-wheel-wrap">
+          <div class="terms-pointer"></div>
+          <svg class="terms-wheel" viewBox="0 0 600 600" aria-hidden="true"></svg>
+          <div class="terms-center">
+            <span class="terms-today"></span>
+            <div class="terms-name"></div>
+            <span class="terms-date"></span>
+          </div>
+        </div>
+        <div class="terms-info">
+          <button class="terms-prev" type="button" aria-label="上一个节气">‹</button>
+          <p class="terms-custom"></p>
+          <button class="terms-next" type="button" aria-label="下一个节气">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑩ 老北京的一天 -->
+    <section id="day" class="day">
+      <div class="sec-head center day-head">
+        <span class="sec-en">A DAY IN OLD BEIJING</span>
+        <h2>老北京的一天</h2>
+        <p class="sec-sub">从鸽哨响起，到后海的灯亮</p>
+      </div>
+      <div class="day-steps"></div>
+    </section>
+
+
+    <!-- ⑪ 行程规划器 -->
+    <section id="planner" class="planner">
+      <div class="sec-head center">
+        <span class="sec-en">PLAN YOUR TRIP</span>
+        <h2>行程规划器</h2>
+        <p class="sec-sub">选几天、选兴趣，给你一份可以直接照着走的北京行程</p>
+      </div>
+      <div class="planner-controls">
+        <div class="planner-group">
+          <span class="planner-label">天数</span>
+          <div class="planner-days">
+            <button class="planner-day active" data-days="1">一天</button>
+            <button class="planner-day" data-days="2">两天</button>
+            <button class="planner-day" data-days="3">三天</button>
+          </div>
+        </div>
+        <div class="planner-group">
+          <span class="planner-label">兴趣</span>
+          <div class="planner-interests"></div>
+        </div>
+        <button class="planner-go" type="button">生成行程</button>
+      </div>
+      <div class="planner-result" hidden>
+        <div class="planner-days-out"></div>
+        <div class="planner-actions">
+          <button class="planner-shuffle" type="button">换一版</button>
+          <button class="planner-copy" type="button">复制行程</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⑫ 结尾 -->
+    <section id="ending" class="ending">
+      <svg class="ending-mountains" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+        <path class="m1" d="M0,220 C120,180 200,140 320,170 C420,195 470,120 600,130 C720,140 760,200 900,180 C1020,165 1080,90 1200,110 C1300,128 1380,180 1440,170 L1440,320 L0,320 Z"/>
+        <path class="m2" d="M0,260 C160,230 240,250 380,235 C520,220 600,180 760,205 C900,225 980,250 1120,230 C1240,215 1340,235 1440,225 L1440,320 L0,320 Z"/>
+      </svg>
+      <div class="ending-content">
+        <p class="ending-en">COME TO BEIJING</p>
+        <h2 class="ending-title">来北京，赴一场千年之约</h2>
+        <div class="ending-seal seal seal-xl"><span>北京<br>欢迎你</span></div>
+        <p class="ending-sub">长城的风、故宫的雪、胡同的鸽哨——都在等你</p>
+      </div>
+      <footer class="footer">
+        <button class="credits-toggle" type="button" aria-expanded="false">图片来源与署名</button>
+        <ul class="credits-list" hidden></ul>
+        <p class="footer-line">图片来自 Wikimedia Commons（公有领域 / CC0 / CC BY / CC BY-SA）· 动画 GSAP · 平滑滚动 Lenis · © 2026</p>
+      </footer>
+    </section>
+
+  </main>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/site-utils.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
