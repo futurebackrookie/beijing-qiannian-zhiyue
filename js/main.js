@@ -20,7 +20,7 @@
   /* 图片地址：本地 sd/hd，远程作为后备 */
   /* 图片扩展名。源码默认 .jpg；scripts/build-deploy.sh 生成精简发布版时会
      把它替换成 .webp（体积约为 JPEG 的 40%，画质更好），两种构建共用同一份源码。 */
-  const IMG_EXT = 'webp';
+  const IMG_EXT = 'jpg';
   /* 是否存在 images/hd/ 大图目录。精简发布版会由构建脚本改为 false，
      避免在 ≥2560px 屏幕上请求并不存在的大图。 */
   const HAS_HD = false;
