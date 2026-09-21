@@ -259,18 +259,14 @@
   }
 
   /* ------------------------------------------------------------------------
-     BGM：合成古琴（Web Audio 实时生成）
-     页面上不再内置《游京》音轨——站内没有该曲的公开传播授权。
-     若日后取得授权，在 index.html 的 .topbar 里放回：
-       <audio id="bgm-audio" loop preload="none">
-         <source src="audio/youjing.m4a" type="audio/mp4">
-         <source src="audio/youjing.mp3" type="audio/mpeg">
-       </audio>
-     下面会自动检测到它并优先播放，无需改动其它代码；文件不可播放时仍回退到古琴。
+     BGM：优先播放站内音轨 audio/liushui.m4a|mp3（古琴曲《流水》，Charlie Huang 演奏，
+     CC BY 2.5，来自 Wikimedia Commons）；index.html 里的 <audio id="bgm-audio"> 不存在
+     或无法播放时，回退到 Web Audio 实时合成的古琴。
      ------------------------------------------------------------------------ */
   function initBGM() {
     const btn = $('#bgm-toggle');
-    const audio = $('#bgm-audio'); // 可以为 null：表示站内没有授权音轨
+    const audio = $('#bgm-audio'); // 可以为 null：表示站内没有音轨
+    if (audio) audio.volume = .65;
     const label = $('.bgm-label', btn);
     const status = $('#bgm-status');
     let ctx, master, wet, noiseGain, timer = null, nextTime = 0, degree = 7;
@@ -359,28 +355,27 @@
       onState: ({ playing, mode }) => {
         const usingTrack = mode === 'track';
         btn.setAttribute('aria-pressed', String(playing));
-        label.textContent = usingTrack ? '游京' : '古琴';
+        label.textContent = usingTrack ? '流水' : '古琴';
         if (playing && usingTrack) {
           btn.title = '';
-          btn.setAttribute('aria-label', '暂停《游京》');
-          status.textContent = '正在播放《游京》';
+          btn.setAttribute('aria-label', '暂停古琴曲《流水》');
+          status.textContent = '正在播放古琴曲《流水》';
         } else if (playing) {
           btn.title = '';
           btn.setAttribute('aria-label', '暂停背景音乐');
           status.textContent = '正在播放背景音乐（合成古琴）';
         } else {
-          btn.setAttribute('aria-label', usingTrack ? '播放《游京》' : '播放背景音乐');
+          btn.setAttribute('aria-label', usingTrack ? '播放古琴曲《流水》' : '播放背景音乐');
           status.textContent = '背景音乐已暂停';
         }
       },
     });
 
-    // 初态：站点不内置《游京》音轨时，按钮直接就是「古琴」，
-    // 不要先显示一个永远播不出来的曲名。
+    // 初态：有音轨时按钮显示「古琴」，点击后播放《流水》并显示曲名。
     const idle = controller.getState();
     btn.setAttribute('aria-pressed', 'false');
-    label.textContent = idle.mode === 'track' ? '游京' : '古琴';
-    btn.setAttribute('aria-label', idle.mode === 'track' ? '播放《游京》' : '播放背景音乐');
+    label.textContent = '古琴';
+    btn.setAttribute('aria-label', idle.mode === 'track' ? '播放古琴曲《流水》' : '播放背景音乐');
     btn.title = idle.mode === 'track'
       ? ''
       : '站内未内置音乐音轨，背景音乐为实时合成的古琴';

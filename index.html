@@ -40,9 +40,12 @@
       <span class="bgm-bars"><i></i><i></i><i></i><i></i></span>
       <span class="bgm-label">古琴</span>
     </button>
-    <!-- 站内不内置《游京》音轨（未取得公开传播授权）。
-         取得授权后，在此放回 <audio id="bgm-audio"> 及 m4a/mp3 两个 source，
-         js/main.js 会自动检测并优先播放它。 -->
+    <!-- 背景音乐：古琴曲《流水》，Charlie Huang 演奏，CC BY 2.5（Wikimedia Commons）。
+         文件不可播放时 js/main.js 会自动回退到实时合成的古琴。 -->
+    <audio id="bgm-audio" loop preload="none">
+      <source src="audio/liushui.m4a" type="audio/mp4">
+      <source src="audio/liushui.mp3" type="audio/mpeg">
+    </audio>
     <span id="bgm-status" class="sr-only" aria-live="polite"></span>
   </header>
 
@@ -389,11 +392,17 @@
       <footer class="footer">
         <button class="credits-toggle" type="button" aria-expanded="false">图片来源与署名</button>
         <ul class="credits-list" hidden></ul>
-        <p class="footer-line">图片来自 Wikimedia Commons（公有领域 / CC0 / CC BY / CC BY-SA）· 动画 GSAP · 平滑滚动 Lenis · © 2026</p>
+        <p class="footer-line">图片来自 Wikimedia Commons（公有领域 / CC0 / CC BY / CC BY-SA）· 背景音乐 古琴《流水》 <a href="https://commons.wikimedia.org/wiki/File:Liu_Shui.ogg" target="_blank" rel="noopener">Charlie Huang 演奏 · CC BY 2.5</a> · 动画 GSAP · 平滑滚动 Lenis · © 2026</p>
       </footer>
     </section>
 
   </main>
+
+  <!-- ===== 访问统计（可选）=====
+       想知道访客是否真的停留了 10 分钟，把统计代码贴在这里：
+       · 百度统计：tongji.baidu.com → 新增网站 → 复制「hm.js」那段 <script>
+       · Umami / Plausible：粘贴其提供的一行 <script data-website-id=…>
+       没有统计代码时留空即可，不影响网站运行。 -->
 
   <script src="vendor/gsap.min.js"></script>
   <script src="vendor/ScrollTrigger.min.js"></script>

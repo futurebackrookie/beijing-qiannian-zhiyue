@@ -1,0 +1,9 @@
+# Cloudflare Pages / Netlify 会读取本文件设置响应头；GitHub Pages 会忽略它（无害）。
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/audio/*
+  Cache-Control: public, max-age=31536000, immutable
+/vendor/*
+  Cache-Control: public, max-age=2592000

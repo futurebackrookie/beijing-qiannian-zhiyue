@@ -5,6 +5,31 @@
 
 在线访问：<https://futurebackrookie.github.io/beijing-qiannian-zhiyue/>
 
+## 部署与分享
+
+**线上地址（GitHub Pages）**：<https://futurebackrookie.github.io/beijing-qiannian-zhiyue/>
+本仓库 `main` 分支根目录即站点，`git push` 后约 1 分钟自动更新。
+
+**国内访问更稳的镜像（Cloudflare Pages，免费）**：
+1. 登录 <https://dash.cloudflare.com> → Workers & Pages → Create → Pages → Connect to Git；
+2. 选择本仓库，Framework preset 选 **None**，Build command 留空，Output directory 填 `/`；
+3. Deploy 后得到 `xxx.pages.dev` 地址；以后每次 push GitHub 会自动同步部署。
+   仓库里的 `_headers` 会让 Cloudflare 对图片 / 字体 / 音频做一年缓存。
+
+**自定义域名**（可选）：
+- GitHub Pages：仓库 Settings → Pages → Custom domain 填域名（例如 `beijing.example.com`），
+  再到域名服务商加一条 CNAME 记录指向 `futurebackrookie.github.io`；GitHub 会自动签 HTTPS 证书。
+- Cloudflare Pages：项目 → Custom domains → 添加，若域名本身托管在 Cloudflare 则一键完成。
+
+**访问统计**（可选）：`index.html` 底部有一段注释标出了粘贴统计代码的位置，
+支持百度统计（国内）或 Umami / Plausible（无 Cookie，隐私友好）。
+
+## 背景音乐
+
+右上角「古琴」按钮播放古琴曲《流水》（Charlie Huang 演奏，CC BY 2.5，来自 Wikimedia Commons），
+文件在 `audio/liushui.m4a`（Safari / iOS）与 `audio/liushui.mp3`（其余浏览器）。
+两个文件都缺时自动回退到 Web Audio 实时合成的古琴。只使用你有权公开传播的音频。
+
 ## 技术说明
 
 - **零依赖构建**：纯静态 HTML / CSS / JS，不需要任何构建步骤，`index.html` 直接可用。
@@ -25,10 +50,10 @@ css/fonts.css       自托管字体子集
 js/data.js          所有文案与图片配置 —— 改文字、换图片改这里
 js/site-utils.js    可测试的图片、音频等工具函数
 js/main.js          全部交互
-images/sd/          48 张 1600px WebP 图片
+images/sd/          48 张 3840px 原始 JPEG
 fonts/              35 个 woff2 字体子集
 vendor/             gsap / ScrollTrigger / lenis
-audio/              预留目录（当前为空，背景音乐为实时合成古琴）
+audio/              古琴曲《流水》m4a / mp3（CC BY 2.5）
 ```
 
 ## 本地预览
@@ -43,15 +68,10 @@ python3 -m http.server 8000
 ## 内容修改
 
 - **改文案**：编辑 `js/data.js` 中的 `seasons / timeline / axis / scenes / foods / masks / quiz / terms / day / planner`。
-- **换图片**：把新图放进 `images/sd/<key>.jpg`（`<key>` 见 `js/data.js` 的 `images` 对象），再转成 WebP：
-  ```bash
-  cwebp -q 78 -resize 1600 0 images/sd/your.jpg -o images/sd/your.webp
-  ```
-  同时把 `js/main.js` 顶部的 `IMG_EXT` 改为 `'webp'`（本仓库已经是 WebP）。
+- **换图片**：把新图（建议 3840px 宽）放进 `images/sd/<key>.jpg`，`<key>` 见 `js/data.js` 的 `images` 对象。
 - **改配色**：`css/style.css` 顶部 `:root` 里的 `--paper / --ink / --vermilion / --gold` 等变量。
-- **背景音乐**：右上角「古琴」按钮播放的是 Web Audio 实时合成的古琴，不依赖任何音频文件。
-  本站不内置第三方音乐音轨。若日后取得某首曲子的公开传播授权，可在 `index.html` 放回
-  `<audio id="bgm-audio">` 元素，`js/main.js` 会自动优先播放它。
+- **背景音乐**：右上角「古琴」按钮播放古琴曲《流水》（`audio/liushui.m4a|mp3`，Charlie Huang 演奏，
+  CC BY 2.5）。换曲子时替换这两个文件并改 `index.html` 里的 `<source>`；文件缺失时自动回退到合成古琴。
 
 ## 交互一览
 
@@ -91,5 +111,5 @@ python3 -m http.server 8000
 
 ## 授权
 
-- 代码：可自由使用、修改。
-- 图片：遵循各自的 CC 许可证，**必须保留页脚署名与 `js/data.js` 中的 `credits` 数据**。
+- 代码：MIT（见 `LICENSE`），可自由使用、修改。
+- 图片与古琴录音：遵循各自的 CC 许可证，**必须保留页脚署名与 `js/data.js` 中的 `credits` 数据**。
