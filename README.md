@@ -10,11 +10,14 @@
 **线上地址（GitHub Pages）**：<https://futurebackrookie.github.io/beijing-qiannian-zhiyue/>
 本仓库 `main` 分支根目录即站点，`git push` 后约 1 分钟自动更新。
 
-**国内访问更稳的镜像（Cloudflare Pages，免费）**：
-1. 登录 <https://dash.cloudflare.com> → Workers & Pages → Create → Pages → Connect to Git；
-2. 选择本仓库，Framework preset 选 **None**，Build command 留空，Output directory 填 `/`；
-3. Deploy 后得到 `xxx.pages.dev` 地址；以后每次 push GitHub 会自动同步部署。
-   仓库里的 `_headers` 会让 Cloudflare 对图片 / 字体 / 音频做一年缓存。
+**国内访问更稳的镜像（Cloudflare Pages，已部署）**：<https://beijing-qiannian-zhiyue.pages.dev/>
+采用命令行直传（不连 GitHub），每次更新线上多跑一条命令：
+```bash
+bash scripts/build-deploy.sh        # 生成 .deploy/
+bash scripts/deploy-cloudflare.sh   # 上传到 Cloudflare Pages（只传有变化的文件）
+cd .deploy && git add -A && git commit -m "更新" && git push   # 同步 GitHub Pages
+```
+首次在新电脑上使用需先 `npx wrangler login`（浏览器点 Allow）。仓库里的 `_headers` 让 Cloudflare 对图片 / 字体 / 音频缓存一年。
 
 **自定义域名**（可选）：
 - GitHub Pages：仓库 Settings → Pages → Custom domain 填域名（例如 `beijing.example.com`），
